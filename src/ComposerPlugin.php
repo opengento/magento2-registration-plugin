@@ -11,6 +11,7 @@ use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 
 final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
@@ -28,8 +29,13 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 
     }
 
-    public function compileRegistration(): void
+    public function compileRegistration(Event $event): void
     {
+        $io = $event->getIO();
+        $composer = $event->getComposer();
+
+        $io->write('<info>Dump components registration file:</info>');
+
         // ToDo: To Implement
     }
 }
