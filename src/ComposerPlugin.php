@@ -16,17 +16,27 @@ use Composer\Script\ScriptEvents;
 
 final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 {
+    public function activate(Composer $composer, IOInterface $io): void
+    {
+        // Silence is golden...
+    }
+
+    public function deactivate(Composer $composer, IOInterface $io): void
+    {
+        // Silence is golden...
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io): void
+    {
+        // Silence is golden...
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
             ScriptEvents::POST_INSTALL_CMD => 'compileRegistration',
             ScriptEvents::POST_UPDATE_CMD => 'compileRegistration'
         ];
-    }
-
-    public function activate(Composer $composer, IOInterface $io): void
-    {
-
     }
 
     public function compileRegistration(Event $event): void
