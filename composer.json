@@ -1,5 +1,6 @@
 {
     "name": "opengento/composer-registration-plugin",
+    "version": "1.0.0",
     "description": "This plugin allows to compile the Magento2 components registrations on composer install/update.",
     "keywords": [
         "php",
@@ -12,13 +13,13 @@
         "composer"
     ],
     "require": {
-        "php": "^7.4||^8.0",
+        "php": "^7.1||^7.2||^7.3||^7.4||^8.0",
         "composer-plugin-api": "^1.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
     },
-    "type": "magento2-registration-plugin",
+    "type": "composer-plugin",
     "license": [
         "MIT"
     ],
