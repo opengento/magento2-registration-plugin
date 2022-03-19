@@ -1,0 +1,50 @@
+{
+    "name": "opengento/module-",
+    "description": "This module...",
+    "keywords": [
+        "php",
+        "magento",
+        "magento2",
+        "module",
+        "extension",
+        "free"
+    ],
+    "require": {
+        "php": "^7.4||^8.0",
+        "psr/log": "*",
+        "magento/framework": "*",
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "^5",
+        "magento/marketplace-eqp": "^4.0",
+        "roave/security-advisories": "dev-master"
+    },
+    "suggest": {
+        "opengento/module-...": "This module will..."
+    },
+    "type": "magento2-module",
+    "license": [
+        "MIT"
+    ],
+    "homepage": "https://github.com/opengento/magento2-module",
+    "authors": [
+        {
+            "name": "Opengento Team",
+            "email": "opengento@gmail.com",
+            "homepage": "https://opengento.fr/",
+            "role": "lead"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/opengento/magento2-module",
+        "issues": "https://github.com/opengento/magento2-module/issues"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Opengento\\Module\\": ""
+        }
+    }
+}
