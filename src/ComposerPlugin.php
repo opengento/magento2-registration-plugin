@@ -13,6 +13,17 @@ use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
+use Generator;
+use Laminas\Code\DeclareStatement;
+use Laminas\Code\Generator\FileGenerator;
+use function fclose;
+use function fopen;
+use function fwrite;
+use function getcwd;
+use function glob;
+use function sprintf;
+use const DIRECTORY_SEPARATOR;
+use const GLOB_NOSORT;
 
 final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 {
@@ -42,13 +53,31 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     public function compileRegistration(Event $event): void
     {
         $io = $event->getIO();
-        $composer = $event->getComposer();
 
         $io->write('<info>Dump components registration file:</info>');
 
-        $packages = $composer->getRepositoryManager()->getLocalRepository()->getPackages();
+        $basePath = getcwd();
+        $registrar = fopen($basePath . '/app/etc/registration.php', 'w+b');
 
+        $fileGenerator = new FileGenerator();
+        $fileGenerator->setDeclares([DeclareStatement::strictTypes(1)]);
+        fwrite($registrar, $fileGenerator->generate());
 
-        // ToDo: To Implement
+        foreach ($this->globRegistrations($basePath) as $registration) {
+            fwrite($registrar, sprintf("include '%s';\n", $basePath . DIRECTORY_SEPARATOR . $registration));
+        }
+
+        fclose($registrar);
+
+        $io->write('<info>Done!</info>');
+    }
+
+    private function globRegistrations(string $basePath): Generator
+    {
+        $globList = include $basePath . '/app/etc/registration_globlist.php';
+
+        foreach ($globList as $glob) {
+            yield from glob($glob, GLOB_NOSORT);
+        }
     }
 }
