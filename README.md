@@ -1,9 +1,9 @@
 # Module for Magento 2
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/opengento/module-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/module-registration-plugin)
+[![Latest Stable Version](https://img.shields.io/packagist/v/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin)
 [![License: MIT](https://img.shields.io/github/license/opengento/magento2-registration-plugin.svg?style=flat-square)](./LICENSE) 
-[![Packagist](https://img.shields.io/packagist/dt/opengento/module-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/module-registration-plugin/stats)
-[![Packagist](https://img.shields.io/packagist/dm/opengento/module-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/module-registration-plugin/stats)
+[![Packagist](https://img.shields.io/packagist/dt/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin/stats)
+[![Packagist](https://img.shields.io/packagist/dm/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin/stats)
 
 This module add...
 
@@ -26,7 +26,7 @@ Magento 2 Open Source or Commerce edition is required.
 Run the following composer command:
 
 ```
-composer require opengento/module-registration-plugin
+composer require opengento/composer-registration-plugin
 ```
 
 ### Setup the module
