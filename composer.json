@@ -13,12 +13,14 @@
     ],
     "require": {
         "php": "^7.4||^8.0",
-        "composer-plugin-api": "^1.0"
+        "composer-plugin-api": "^1.0||^2.0",
+        "laminas/laminas-code": "^3.5"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
     },
-    "type": "magento2-registration-plugin",
+    "type": "composer-plugin",
+    "version": "1.0",
     "license": [
         "MIT"
     ],
