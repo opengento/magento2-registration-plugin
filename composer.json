@@ -1,32 +1,28 @@
 {
-    "name": "opengento/module-",
-    "description": "This module...",
+    "name": "opengento/composer-registration-plugin",
+    "description": "This plugin allows to compile the Magento2 components registrations on composer install/update.",
     "keywords": [
         "php",
         "magento",
         "magento2",
         "module",
         "extension",
-        "free"
+        "free",
+        "plugin",
+        "composer"
     ],
     "require": {
         "php": "^7.4||^8.0",
-        "psr/log": "*",
-        "magento/framework": "*",
+        "composer-plugin-api": "^1.0"
     },
     "require-dev": {
-        "magento/magento-coding-standard": "^5",
-        "magento/marketplace-eqp": "^4.0",
         "roave/security-advisories": "dev-master"
     },
-    "suggest": {
-        "opengento/module-...": "This module will..."
-    },
-    "type": "magento2-module",
+    "type": "magento2-registration-plugin",
     "license": [
         "MIT"
     ],
-    "homepage": "https://github.com/opengento/magento2-module",
+    "homepage": "https://github.com/opengento/magento2-registration-plugin",
     "authors": [
         {
             "name": "Opengento Team",
@@ -36,15 +32,15 @@
         }
     ],
     "support": {
-        "source": "https://github.com/opengento/magento2-module",
-        "issues": "https://github.com/opengento/magento2-module/issues"
+        "source": "https://github.com/opengento/magento2-registration-plugin",
+        "issues": "https://github.com/opengento/magento2-registration-plugin/issues"
     },
     "autoload": {
-        "files": [
-            "registration.php"
-        ],
         "psr-4": {
-            "Opengento\\Module\\": ""
+            "Opengento\\ComposerRegistrationPlugin\\": "src/"
         }
+    },
+    "extra": {
+        "class": "Opengento\\ComposerRegistrationPlugin\\ComposerPlugin"
     }
 }

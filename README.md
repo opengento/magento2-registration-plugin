@@ -1,15 +1,15 @@
 # Module for Magento 2
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/opengento/module-module.svg?style=flat-square)](https://packagist.org/packages/opengento/module-module)
-[![License: MIT](https://img.shields.io/github/license/opengento/magento2-module.svg?style=flat-square)](./LICENSE) 
-[![Packagist](https://img.shields.io/packagist/dt/opengento/module-module.svg?style=flat-square)](https://packagist.org/packages/opengento/module-module/stats)
-[![Packagist](https://img.shields.io/packagist/dm/opengento/module-module.svg?style=flat-square)](https://packagist.org/packages/opengento/module-module/stats)
+[![Latest Stable Version](https://img.shields.io/packagist/v/opengento/module-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/module-registration-plugin)
+[![License: MIT](https://img.shields.io/github/license/opengento/magento2-registration-plugin.svg?style=flat-square)](./LICENSE) 
+[![Packagist](https://img.shields.io/packagist/dt/opengento/module-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/module-registration-plugin/stats)
+[![Packagist](https://img.shields.io/packagist/dm/opengento/module-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/module-registration-plugin/stats)
 
 This module add...
 
  - [Setup](#setup)
    - [Composer installation](#composer-installation)
-   - [Setup the module](#setup-the-module)
+   - [Setup the module](#setup-the-registration-plugin)
  - [Features](#features)
  - [Settings](#settings)
  - [Documentation](#documentation)
@@ -26,7 +26,7 @@ Magento 2 Open Source or Commerce edition is required.
 Run the following composer command:
 
 ```
-composer require opengento/module-module
+composer require opengento/module-registration-plugin
 ```
 
 ### Setup the module
@@ -54,12 +54,12 @@ The configuration for this module is available in `Stores > Configuration > Modu
 
 ## Support
 
-Raise a new [request](https://github.com/opengento/magento2-module/issues) to the issue tracker.
+Raise a new [request](https://github.com/opengento/magento2-registration-plugin/issues) to the issue tracker.
 
 ## Authors
 
 - **Opengento Community** - *Lead* - [![Twitter Follow](https://img.shields.io/twitter/follow/opengento.svg?style=social)](https://twitter.com/opengento)
-- **Contributors** - *Contributor* - [![GitHub contributors](https://img.shields.io/github/contributors/opengento/magento2-module.svg?style=flat-square)](https://github.com/opengento/magento2-module/graphs/contributors)
+- **Contributors** - *Contributor* - [![GitHub contributors](https://img.shields.io/github/contributors/opengento/magento2-registration-plugin.svg?style=flat-square)](https://github.com/opengento/magento2-registration-plugin/graphs/contributors)
 
 ## License
 
