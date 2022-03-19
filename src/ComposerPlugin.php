@@ -36,6 +36,9 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 
         $io->write('<info>Dump components registration file:</info>');
 
+        $packages = $composer->getRepositoryManager()->getLocalRepository()->getPackages();
+
+
         // ToDo: To Implement
     }
 }
