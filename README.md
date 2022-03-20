@@ -1,4 +1,4 @@
-# Module for Magento 2
+# Composer Registrar Composer Plugin for Magento 2
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin)
 [![License: MIT](https://img.shields.io/github/license/opengento/magento2-registration-plugin.svg?style=flat-square)](./LICENSE) 
