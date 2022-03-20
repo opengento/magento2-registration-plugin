@@ -32,18 +32,6 @@ This composer plugin will generate a global `registration.php` file for componen
 
 ## Documentation
 
-In order to use this plugin, edit your project `composer.json` file, replace the files of autoload with:
-
-```json
-{
-  "autoload": {
-    "files": [
-      "app/etc/registration.php"
-    ]
-  }
-}
-```
-
 In order to optimize you project, your autoload section should be the same:
 
 ```json

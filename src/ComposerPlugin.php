@@ -57,7 +57,7 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         $io->write('<info>Dump components registration file...</info>');
 
         $basePath = getcwd();
-        $filePath = $basePath . '/app/etc/registration.php';
+        $filePath = $basePath . '/app/etc/NonComposerComponentRegistration.php';
         $registrar = fopen($filePath, 'w+b');
 
         $fileGenerator = new FileGenerator();
