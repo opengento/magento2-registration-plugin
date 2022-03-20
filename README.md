@@ -1,17 +1,14 @@
-# Module for Magento 2
+# Composer Registrar Composer Plugin for Magento 2
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin)
 [![License: MIT](https://img.shields.io/github/license/opengento/magento2-registration-plugin.svg?style=flat-square)](./LICENSE) 
 [![Packagist](https://img.shields.io/packagist/dt/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin/stats)
 [![Packagist](https://img.shields.io/packagist/dm/opengento/composer-registration-plugin.svg?style=flat-square)](https://packagist.org/packages/opengento/composer-registration-plugin/stats)
 
-This module add...
+This module add a global registration.php that replace the default glob search performed for each request to discover the components not installed from composer.
 
  - [Setup](#setup)
-   - [Composer installation](#composer-installation)
-   - [Setup the module](#setup-the-registration-plugin)
  - [Features](#features)
- - [Settings](#settings)
  - [Documentation](#documentation)
  - [Support](#support)
  - [Authors](#authors)
@@ -29,28 +26,36 @@ Run the following composer command:
 composer require opengento/composer-registration-plugin
 ```
 
-### Setup the module
-
-Run the following magento command:
-
-```
-bin/magento setup:upgrade
-```
-
-**If you are in production mode, do not forget to recompile and redeploy the static resources.**
-
 ## Features
 
-### Country to store mapping
-
-Define many countries to many stores relation. This configuration will allows Magento to map stores with countries.
-
-## Settings
-
-The configuration for this module is available in `Stores > Configuration > Module`.  
+This composer plugin will generate a global `registration.php` file for components in app & setup directories.
 
 ## Documentation
 
+In order to use this plugin, edit your project `composer.json` file, replace the files of autoload with:
+
+```json
+{
+  "autoload": {
+    "files": [
+      "app/etc/registration.php"
+    ]
+  }
+}
+```
+
+In order to optimize you project, your autoload section should be the same:
+
+```json
+{
+  "autoload": {
+    "psr-4": {
+      "Magento\\Setup\\": "setup/src/Magento/Setup/",
+      "Zend\\Mvc\\Controller\\": "setup/src/Zend/Mvc/Controller/"
+    }
+  }
+}
+```
 
 ## Support
 
