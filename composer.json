@@ -20,7 +20,6 @@
         "roave/security-advisories": "dev-master"
     },
     "type": "composer-plugin",
-    "version": "1.0",
     "license": [
         "MIT"
     ],
