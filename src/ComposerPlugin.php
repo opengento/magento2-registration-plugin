@@ -54,10 +54,11 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     {
         $io = $event->getIO();
 
-        $io->write('<info>Dump components registration file:</info>');
+        $io->write('<info>Dump components registration file...</info>');
 
         $basePath = getcwd();
-        $registrar = fopen($basePath . '/app/etc/registration.php', 'w+b');
+        $filePath = $basePath . '/app/etc/registration.php';
+        $registrar = fopen($filePath, 'w+b');
 
         $fileGenerator = new FileGenerator();
         $fileGenerator->setDeclares([DeclareStatement::strictTypes(1)]);
@@ -69,7 +70,7 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 
         fclose($registrar);
 
-        $io->write('<info>Done!</info>');
+        $io->write('<info>Dumped at <comment>`' . $filePath . '`</comment>!</info>');
     }
 
     private function globRegistrations(string $basePath): Generator
