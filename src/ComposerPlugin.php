@@ -11,7 +11,6 @@ use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
-use Composer\Plugin\PluginEvents;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
@@ -44,14 +43,13 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 
     public function activate(Composer $composer, IOInterface $io): void
     {
-        $basePath = getcwd();
-        $backupFilePath = $basePath . DIRECTORY_SEPARATOR . self::BACKUP_NON_COMPOSER_COMPONENT_REGISTRATION;
-        if (!file_exists($backupFilePath)) {
-            rename($basePath . DIRECTORY_SEPARATOR . self::NON_COMPOSER_COMPONENT_REGISTRATION, $backupFilePath);
-        }
     }
 
     public function deactivate(Composer $composer, IOInterface $io): void
+    {
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
         $basePath = getcwd();
         $nonComposerComponentFilePath = $basePath . DIRECTORY_SEPARATOR . self::NON_COMPOSER_COMPONENT_REGISTRATION;
@@ -62,17 +60,12 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         }
     }
 
-    public function uninstall(Composer $composer, IOInterface $io): void
-    {
-        $this->deactivate($composer, $io);
-    }
-
     public static function getSubscribedEvents(): array
     {
         return [
-            ScriptEvents::POST_INSTALL_CMD => ['compileRegistration', 100],
-            ScriptEvents::POST_UPDATE_CMD => ['compileRegistration', 100],
-            PackageEvents::POST_PACKAGE_UNINSTALL => ['compileRegistration', 100]
+            ScriptEvents::POST_INSTALL_CMD => 'compileRegistration',
+            ScriptEvents::POST_UPDATE_CMD => 'compileRegistration',
+            PackageEvents::POST_PACKAGE_UNINSTALL => 'compileRegistration'
         ];
     }
 
@@ -80,14 +73,21 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     {
         $io = $event->getIO();
 
-        $io->write('<info>Dump components registration file...</info>');
+        $io->write('<info>Generating components registration file...</info>');
 
         $basePath = getcwd();
         $fileName = self::NON_COMPOSER_COMPONENT_REGISTRATION;
 
+        $nonComposerComponentFilePath = $basePath . DIRECTORY_SEPARATOR . $fileName;
+        $backupFilePath = $basePath . DIRECTORY_SEPARATOR . self::BACKUP_NON_COMPOSER_COMPONENT_REGISTRATION;
+        if (file_exists($nonComposerComponentFilePath) && !file_exists($backupFilePath)) {
+            rename($nonComposerComponentFilePath, $backupFilePath);
+            $io->write('<comment>Backup of ' . $nonComposerComponentFilePath .' at ' . $backupFilePath . '</comment>');
+        }
+
         $this->dumpRegistration($basePath, $fileName);
 
-        $io->write('<info>Dumped at <comment>`' . $basePath . DIRECTORY_SEPARATOR . $fileName . '`</comment>!</info>');
+        $io->write('<info>Dumped at <comment>`' . $nonComposerComponentFilePath . '`</comment>!</info>');
     }
 
     private function dumpRegistration(string $basePath, string $fileName): void

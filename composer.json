@@ -14,7 +14,8 @@
     "require": {
         "php": "~7.1||~7.2||~7.3||~7.4||^8.0",
         "composer-plugin-api": "^1.0||^2.0",
-        "laminas/laminas-code": "^3.4||^4.0"
+        "laminas/laminas-code": "^3.4||^4.0",
+        "magento/magento-composer-installer": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
