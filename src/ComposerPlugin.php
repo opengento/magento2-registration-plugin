@@ -97,10 +97,8 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         $fileGenerator->setUse(ComponentRegistrar::class);
         fwrite($registrar, $fileGenerator->generate());
 
-        foreach ($this->resolveComponents($basePath) as $type => $components) {
-            foreach ($components as $name => $path) {
-                fwrite($registrar, $this->registrarGenerator($type, $name, $path)->generate() . PHP_EOL);
-            }
+        foreach ($this->resolveComponents($basePath) as [$type, $name, $path]) {
+            fwrite($registrar, $this->registrarGenerator($type, $name, $path)->generate() . PHP_EOL);
         }
         fclose($registrar);
     }
@@ -115,17 +113,24 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         ));
     }
 
-    private function resolveComponents(string $basePath): array
+    private function resolveComponents(string $basePath): Generator
     {
+        $reflection = new ReflectionClass(ComponentRegistrar::class);
+        $pathsProperty = $reflection->getProperty('paths');
+        $pathsProperty->setAccessible(true);
+        $alreadyRegisteredComponents = $pathsProperty->getValue();
+
         foreach ($this->globRegistrations($basePath) as $registration) {
             include $registration;
         }
 
-        $reflection = new ReflectionClass(ComponentRegistrar::class);
-        $pathsProperty = $reflection->getProperty('paths');
-        $pathsProperty->setAccessible(true);
-
-        return $pathsProperty->getValue();
+        foreach ($pathsProperty->getValue() as $type => $components) {
+            foreach ($components as $name => $path) {
+                if (!isset($alreadyRegisteredComponents[$type][$name])) {
+                    yield [$type, $name, $path];
+                }
+            }
+        }
     }
 
     private function globRegistrations(string $basePath): Generator
