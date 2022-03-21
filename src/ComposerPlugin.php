@@ -22,12 +22,14 @@ use Laminas\Code\Generator\ValueGenerator;
 use Magento\Framework\Component\ComponentRegistrar;
 use ReflectionClass;
 use function fclose;
+use function file_exists;
 use function fopen;
 use function fwrite;
 use function getcwd;
 use function glob;
 use function rename;
 use function sprintf;
+use function unlink;
 use const DIRECTORY_SEPARATOR;
 use const GLOB_NOSORT;
 use const PHP_EOL;
@@ -40,18 +42,22 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
 
     public function activate(Composer $composer, IOInterface $io): void
     {
-        $this->renameRegistrationFile(
-            self::NON_COMPOSER_COMPONENT_REGISTRATION,
-            self::BACKUP_NON_COMPOSER_COMPONENT_REGISTRATION
-        );
+        $basePath = getcwd();
+        $backupFilePath = $basePath . DIRECTORY_SEPARATOR . self::BACKUP_NON_COMPOSER_COMPONENT_REGISTRATION;
+        if (!file_exists($backupFilePath)) {
+            rename($basePath . DIRECTORY_SEPARATOR . self::NON_COMPOSER_COMPONENT_REGISTRATION, $backupFilePath);
+        }
     }
 
     public function deactivate(Composer $composer, IOInterface $io): void
     {
-        $this->renameRegistrationFile(
-            self::BACKUP_NON_COMPOSER_COMPONENT_REGISTRATION,
-            self::NON_COMPOSER_COMPONENT_REGISTRATION
-        );
+        $basePath = getcwd();
+        $nonComposerComponentFilePath = $basePath . DIRECTORY_SEPARATOR . self::NON_COMPOSER_COMPONENT_REGISTRATION;
+        $backupFilePath = $basePath . DIRECTORY_SEPARATOR . self::BACKUP_NON_COMPOSER_COMPONENT_REGISTRATION;
+        if (file_exists($backupFilePath)) {
+            unlink($nonComposerComponentFilePath);
+            rename($backupFilePath, $nonComposerComponentFilePath);
+        }
     }
 
     public function uninstall(Composer $composer, IOInterface $io): void
@@ -79,12 +85,6 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         $this->dumpRegistration($basePath, $fileName);
 
         $io->write('<info>Dumped at <comment>`' . $basePath . DIRECTORY_SEPARATOR . $fileName . '`</comment>!</info>');
-    }
-
-    private function renameRegistrationFile(string $oldFileName, string $newFileName): void
-    {
-        $basePath = getcwd();
-        rename($basePath . DIRECTORY_SEPARATOR . $oldFileName, $basePath . DIRECTORY_SEPARATOR . $newFileName);
     }
 
     private function dumpRegistration(string $basePath, string $fileName): void
