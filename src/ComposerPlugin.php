@@ -9,7 +9,9 @@ namespace Opengento\ComposerRegistrationPlugin;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
+use Composer\Plugin\PluginEvents;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
@@ -68,8 +70,9 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ScriptEvents::POST_INSTALL_CMD => 'compileRegistration',
-            ScriptEvents::POST_UPDATE_CMD => 'compileRegistration'
+            ScriptEvents::POST_INSTALL_CMD => ['compileRegistration', 100],
+            ScriptEvents::POST_UPDATE_CMD => ['compileRegistration', 100],
+            PackageEvents::POST_PACKAGE_UNINSTALL => ['compileRegistration', 100]
         ];
     }
 
