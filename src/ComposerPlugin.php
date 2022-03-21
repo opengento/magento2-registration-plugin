@@ -64,8 +64,7 @@ final class ComposerPlugin implements PluginInterface, EventSubscriberInterface
     {
         return [
             ScriptEvents::POST_INSTALL_CMD => 'compileRegistration',
-            ScriptEvents::POST_UPDATE_CMD => 'compileRegistration',
-            PackageEvents::POST_PACKAGE_UNINSTALL => 'compileRegistration'
+            ScriptEvents::POST_UPDATE_CMD => 'compileRegistration'
         ];
     }
 
